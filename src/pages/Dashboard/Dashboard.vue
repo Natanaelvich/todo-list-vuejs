@@ -6,8 +6,8 @@
         :transitionDuration="2000"
         :radius="50"
         :strokeWidth="10"
-        value="86.12"
-        strokeColor="#bb020f"
+        :value="`${tasks.length}.00`"
+        strokeColor="#f21627"
       >
       </Progress>
     </div>
@@ -41,6 +41,9 @@ export default {
   },
   methods: {
     addTask: function() {
+      if (this.tasks.includes(this.task)) {
+        return console.log("ja existe essa tarefa");
+      }
       this.tasks.push(this.task);
       this.task = "";
     },
@@ -101,5 +104,6 @@ export default {
   grid-gap: 20px;
   margin-bottom: 30px;
   margin-top: 40px;
+  padding: 0 40px;
 }
 </style>
