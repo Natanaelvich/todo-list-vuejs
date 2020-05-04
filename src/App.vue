@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <Props />
+    <Dashboard />
   </div>
 </template>
 
 <script>
-import Props from "./components/Props.vue";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 export default {
   name: "App",
   components: {
-    Props,
+    Dashboard,
   },
 };
 </script>
@@ -21,23 +21,17 @@ export default {
   padding: 0;
   outline: 0;
   box-sizing: border-box;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 html,
 body,
 #app {
-  min-height: 100%;
+  height: 100%;
 }
 #app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background: #f5f5f5;
-
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-}
-Counter {
-  background: #2c3e50;
 }
 </style>
