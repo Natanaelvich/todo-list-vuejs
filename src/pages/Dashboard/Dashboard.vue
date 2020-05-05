@@ -13,15 +13,14 @@
     </div>
     <div class="new-task">
       <input
-        v-model="task"
+        v-model="taskName"
         type="text"
         placeholder="Adicionar nova tarefa"
       />
       <button @click.prevent.stop="addTask">+</button>
     </div>
-    <div class="tasks" v-if="tasks.length > 0">
-      <Task v-for="task in tasks" :key="task" :task="task" />
-    </div>
+
+    <Task v-if="tasks.length > 0" :tasks="tasks" />
   </div>
 </template>
 
@@ -35,17 +34,21 @@ export default {
   },
   data() {
     return {
-      task: "",
+      taskName: "",
       tasks: [],
     };
   },
   methods: {
     addTask: function() {
-      if (this.tasks.includes(this.task)) {
+      // checks if task already exists
+
+      if (this.tasks.some((t) => t.name === this.taskName)) {
         return console.log("ja existe essa tarefa");
       }
-      this.tasks.push(this.task);
-      this.task = "";
+
+      //add new task and clear input
+      this.tasks.push({ name: this.taskName, done: false });
+      this.taskName = "";
     },
   },
 };
@@ -97,13 +100,5 @@ export default {
 }
 .new-task button:hover {
   background: #bb020f;
-}
-.tasks {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 20px;
-  margin-bottom: 30px;
-  margin-top: 40px;
-  padding: 0 40px;
 }
 </style>
