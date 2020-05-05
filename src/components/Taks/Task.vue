@@ -28,20 +28,23 @@
 <script>
 export default {
   name: "Task",
+
   props: {
     tasks: Array,
   },
+
   data() {
     return {
       isActive: true,
     };
   },
+
   methods: {
     // done a task
     doneTask: function(name) {
       this.tasks.map((t) => {
         if (t.name === name) {
-          t.done = true;
+          t.done = !t.done;
         }
       });
     },

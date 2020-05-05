@@ -6,7 +6,7 @@
         :transitionDuration="2000"
         :radius="50"
         :strokeWidth="10"
-        :value="`${tasks.length}.00`"
+        :value="`${tasksDone}`"
         strokeColor="#f21627"
       >
       </Progress>
@@ -37,6 +37,18 @@ export default {
       taskName: "",
       tasks: [],
     };
+  },
+
+  computed: {
+    tasksDone: function() {
+      const tasks = this.tasks.length;
+      const tasksDone = this.tasks.filter((t) => t.done === true)
+        .length;
+      const percent = parseFloat((tasksDone / tasks) * 100).toFixed(
+        0,
+      );
+      return percent;
+    },
   },
   methods: {
     addTask: function() {
