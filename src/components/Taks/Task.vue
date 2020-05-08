@@ -61,6 +61,7 @@ export default {
   margin-top: 40px;
   padding: 0 40px;
 }
+
 button {
   border: 0;
   cursor: pointer;
@@ -77,14 +78,50 @@ button:hover {
 }
 .task {
   border-radius: 10px;
-  padding: 20px 30px;
+  width: 200px;
+  height: 50px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
   box-shadow: -8px 0px 0px 0px rgba(216, 3, 18, 1);
+  animation-name: scale-up-hor-left;
+  animation-duration: 0.5s;
 }
 .task h1 {
+  font-size: 16px;
   color: #faf8e0;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+@media (max-width: 745px) {
+  .task-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 383px) {
+  .task-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* animation task block */
+@keyframes scale-up-hor-left {
+  0% {
+    -webkit-transform: scaleX(0.4);
+    transform: scaleX(0.4);
+    -webkit-transform-origin: 0% 0%;
+    transform-origin: 0% 0%;
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    -webkit-transform-origin: 0% 0%;
+    transform-origin: 0% 0%;
+  }
 }
 </style>

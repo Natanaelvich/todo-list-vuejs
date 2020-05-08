@@ -6,7 +6,7 @@
         :transitionDuration="2000"
         :radius="50"
         :strokeWidth="10"
-        :value="`${tasksDone}`"
+        :value="`${percentDone}`"
         strokeColor="#f21627"
       >
       </Progress>
@@ -20,13 +20,14 @@
       <button @click.prevent.stop="addTask">+</button>
     </div>
 
-    <Task v-if="tasks.length > 0" :tasks="tasks" />
+    <Task v-if="tasksStore.length > 0" :tasks="tasksStore" />
   </div>
 </template>
 
 <script>
 import Task from "../../components/Taks/Task";
 import Progress from "easy-circular-progress";
+import { mapGetters } from "vuex";
 export default {
   components: {
     Task,
@@ -40,26 +41,23 @@ export default {
   },
 
   computed: {
-    tasksDone: function() {
-      const tasks = this.tasks.length;
-      const tasksDone = this.tasks.filter((t) => t.done === true)
-        .length;
-      const percent = parseFloat((tasksDone / tasks) * 100).toFixed(
-        0,
-      );
-      return percent;
+    ...mapGetters(["percentDone"]),
+    tasksStore: function() {
+      return this.$store.state.tasks.tasks;
     },
   },
   methods: {
     addTask: function() {
       // checks if task already exists
-
-      if (this.tasks.some((t) => t.name === this.taskName)) {
+      if (this.tasksStore.some((t) => t.name === this.taskName)) {
         return console.log("ja existe essa tarefa");
       }
 
-      //add new task and clear input
-      this.tasks.push({ name: this.taskName, done: false });
+      //add task store state
+      this.$store.commit("addTask", {
+        name: this.taskName,
+        done: false,
+      });
       this.taskName = "";
     },
   },
