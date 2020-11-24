@@ -26,6 +26,8 @@
 
 <script>
 import Task from "../../components/Taks/Task";
+//TODO change "Taks"
+//TODO change folders Dashboard and Taks, remove them
 import Progress from "easy-circular-progress";
 import { mapGetters } from "vuex";
 export default {

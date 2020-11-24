@@ -1,29 +1,42 @@
 <template>
   <div class="task-list">
-    <button
-      v-for="task in tasks"
-      :key="task.name"
-      @dblclick="doneTask(task.name)"
-    >
-      <div
-        class="task"
-        :style="[
-          //alter background and text style when task is done
-          !task.done
-            ? { background: '#f21627' }
-            : {
-                background: '#545455',
-                boxShadow: '-8px 0px 0px 0px #414142',
-                textDecoration: 'line-through solid #6F6F70',
-                color: '#6F6F70',
-              },
+    <div v-for="task in tasks" :key="task.name">
+      <button @dblclick="doneTask(task.name)">
+        <div
+          class="task"
+          :style="[
+            //alter background and text style when task is done
+            !task.done
+              ? { background: '#f21627' }
+              : {
+                  background: '#545455',
+                  boxShadow: '-8px 0px 0px 0px #414142',
+                  textDecoration: 'line-through solid #6F6F70',
+                  color: '#6F6F70',
+                },
+          ]"
+        >
+          <h1>{{ task.name }}</h1>
+        </div>
+        <!-- TODO add remove button or sub button -->
+      </button>
+      <button @dblclick="removeTask(task.name)">
+        <div
+        :class="[
+        !task.done
+          ? 'remove'
+          : 'remove done-task' 
         ]"
-      >
-        <h1>{{ task.name }}</h1>
-      </div>
-    </button>
+        >
+        <h1>x</h1>
+        </div>
+      </button>
+    </div>
   </div>
 </template>
+
+
+
 
 <script>
 export default {
@@ -41,12 +54,18 @@ export default {
 
   methods: {
     // done a task
-    doneTask: function(name) {
+    doneTask: function (name) {
       this.tasks.map((t) => {
         if (t.name === name) {
           t.done = !t.done;
         }
       });
+    },
+    removeTask: function (name) {
+      this.tasks.splice(
+        this.tasks.findIndex((t) => t.name === name),
+        1
+      );
     },
   },
 };
@@ -77,7 +96,7 @@ button:hover {
   transition: all 1s ease;
 }
 .task {
-  border-radius: 10px;
+  border-radius: 10px 0px 0px 10px; /* changed */
   width: 200px;
   height: 50px;
   text-align: left;
@@ -96,6 +115,23 @@ button:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.remove {
+  padding: 10px 20px;
+  height: 50px;
+  border-radius: 0px 10px 10px 0px;
+  border: 2px solid #f21627;
+  background: #fff; 
+  color: #2c3e50;
+  font-weight: bold;
+  font-size: 9px;
+  transition: background 0.5s;
+}
+
+.done-task {
+  border: 3px solid #545455;
+  padding: 9px 19px;
 }
 
 @media (max-width: 745px) {
